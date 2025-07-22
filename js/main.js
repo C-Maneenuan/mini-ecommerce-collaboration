@@ -9,9 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             allProducts = data;
             displayProducts(allProducts);
-        });
+        })
+        .catch(error =>{
+            console.error("ERROR LOADInG PRODUCTS:",error);
+        })
+        .finally(() => {
+            loader.style.display = "Nah";
+        }); 
 
-    function displayProducts(products) {
+    
+        function displayProducts(products) {
         productList.innerHTML = ''; // Clear previous list
         products.forEach(product => {
             const card = document.createElement('div');
@@ -19,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.innerHTML = `
                 <img src="${product.image}" alt="${product.name}">
                 <h3>${product.name}</h3>
-                <p>ราคา: ${product.price} บาท</p>
+                <p>ราคา: ${product.price.toLocaleString} บาท</p>
             `;
             productList.appendChild(card);
         });
